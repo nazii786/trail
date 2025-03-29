@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Code Verification</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Code Verification</h1>
+        <input type="text" id="code" placeholder="Enter your registration code">
+        <input type="text" id="mobile" placeholder="Enter your mobile number">
+        <button onclick="verifyCode()">Verify</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const registrations = {
+            "MN5269": "7510253269",
+            "MN9883": "9526676783",
+            "MN1373": "8606130831",
+            "MN2622": "8157998348",
+            "MN3105": "9544523925",
+            "MN4525": "9745561028",
+            "MN7218": "8606148323",
+            "MN1723": "7593061461",
+            "MN7658": "8590608922",
+            "MN8340": "9946102396",
+            "MN2092": "8137862032",
+            "MN8303": "8547560898",
+            "MN2112": "9895540366",
+            "MN9949": "9747947054",
+            "MN7183": "9567248181",
+            "MN3076": "9778320367",
+            "MN6956": "9947420336",
+            "MN5199": "7034324556",
+            "MN4575": "8590819264",
+            "MN4202": "9747687703",
+            "MN7224": "9072356165",
+            "MN4189": "8089581718",
+            "MN7205": "9846183490",
+            "MN8873": "8111925352",
+            "MN6477": "8590197626",
+            "MN3726": "8943464181",
+            "MN3618": "8593096368",
+            "MN9497": "8891843881",
+            "MN8610": "9778794968",
+            "MN9242": "9207095250",
+            "MN1461": "6282751589",
+            "MN0001": "1111111111",
+            "MN0002": "2222222222",
+            "MN0003": "3333333333",
+            "MN0004": "4444444444",
+            "MN0005": "5555555555",
+            "MN0006": "6666666666",
+        };
+
+        const googleFormLink = "https://form.jotform.com/250871102358049";
+
+        function verifyCode() {
+            const enteredCode = document.getElementById("code").value.toUpperCase();
+            const enteredMobile = document.getElementById("mobile").value;
+            const messageElement = document.getElementById("message");
+
+            if (registrations[enteredCode] && registrations[enteredCode] === enteredMobile) {
+                const usedCodes = JSON.parse(localStorage.getItem("usedCodes")) || [];
+
+                if (usedCodes.includes(enteredCode)) {
+                    messageElement.textContent = "This code has already been used.";
+                    messageElement.style.color = "red";
+                } else {
+                    usedCodes.push(enteredCode);
+                    localStorage.setItem("usedCodes", JSON.stringify(usedCodes));
+                    window.location.href = googleFormLink;
+                }
+            } else {
+                messageElement.textContent = "Invalid code or mobile number.";
+                messageElement.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
